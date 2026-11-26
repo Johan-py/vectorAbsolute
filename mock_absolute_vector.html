@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vectorworks 11.5 — UI Mock</title>
+<style>
+:root {
+  --bg: #c6c6c6;
+  --panel: #e5e5e5;
+  --border: #888;
+  --blue: #315d91;
+  --text: #222;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font: 12px Tahoma, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+button, select, input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid #999;
+  background: linear-gradient(#fff, #d6d6d6);
+  padding: 4px 7px;
+  cursor: pointer;
+}
+
+button:hover { background: #dce8f5; }
+button.active { background: #b5cce8; border-color: #527ca8; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* TITLE BAR */
+.titlebar {
+  height: 27px;
+  display: flex;
+  align-items: center;
+  padding: 0 9px;
+  background: linear-gradient(#f8f8f8, #c7c7c7);
+  border-bottom: 1px solid #888;
+  font-weight: bold;
+}
+
+.titlebar .logo {
+  color: #315d91;
+  margin-right: 9px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* MENUS */
+.menubar {
+  display: flex;
+  gap: 0;
+  height: 25px;
+  align-items: center;
+  background: #e5e5e5;
+  border-bottom: 1px solid #aaa;
+}
+
+.menubar span {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.menubar span:hover {
+  background: #315d91;
+  color: white;
+}
+
+/* TOOLBAR */
+.toolbar {
+  height: 39px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #d8d8d8;
+  border-bottom: 1px solid #999;
+}
+
+.tool-icon {
+  width: 29px;
+  height: 27px;
+  font-size: 16px;
+  padding: 2px;
+}
+
+/* WORKSPACE */
+.workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* LEFT PALETTE */
+.palette {
+  width: 174px;
+  background: #dedede;
+  border-right: 1px solid #888;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.palette-header {
+  padding: 7px;
+  font-weight: bold;
+  background: linear-gradient(#f7f7f7, #c8c8c8);
+  border-bottom: 1px solid #999;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 7px;
+}
+
+.tool {
+  height: 42px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.tool small {
+  font-size: 9px;
+  margin-top: 2px;
+}
+
+.tool:hover {
+  background: #eee;
+  border: 1px solid #aaa;
+}
+
+.tool.active {
+  background: #b9d0eb;
+  border: 1px solid #6289b3;
+}
+
+/* CANVAS */
+.drawing-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  background: #999;
+}
+
+.document-tab {
+  height: 25px;
+  background: #ddd;
+  border-bottom: 1px solid #888;
+  padding: 5px 10px;
+}
+
+.canvas-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #999;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+/* RIGHT PANEL */
+.inspector {
+  width: 218px;
+  background: #e3e3e3;
+  border-left: 1px solid #888;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.section {
+  border-bottom: 1px solid #aaa;
+}
+
+.section-title {
+  padding: 7px;
+  font-weight: bold;
+  background: linear-gradient(#f5f5f5, #ccc);
+}
+
+.section-content {
+  padding: 9px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+
+.field input, .field select {
+  width: 95px;
+  padding: 3px;
+  border: 1px solid #aaa;
+  background: white;
+}
+
+/* FOOTER */
+.statusbar {
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 9px;
+  background: #ddd;
+  border-top: 1px solid #999;
+  font-size: 11px;
+}
+
+.status-left, .status-right {
+  display: flex;
+  gap: 15px;
+}
+
+@media(max-width: 800px) {
+  .palette { width: 120px; }
+  .inspector { width: 170px; }
+  .tool-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <header class="titlebar">
+    <span class="logo">V</span>
+    Vectorworks 11.5 — Untitled 1
+  </header>
+
+  <nav class="menubar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Modify</span>
+    <span>Model</span>
+    <span>AEC</span>
+    <span>Organize</span>
+    <span>Tools</span>
+    <span>Window</span>
+    <span>Help</span>
+  </nav>
+
+  <div class="toolbar">
+    <button class="tool-icon" title="Nuevo">📄</button>
+    <button class="tool-icon" title="Abrir">📂</button>
+    <button class="tool-icon" title="Guardar">💾</button>
+    <button class="tool-icon" title="Imprimir">🖨</button>
+    <span>|</span>
+    <button class="tool-icon" title="Deshacer">↶</button>
+    <button class="tool-icon" title="Rehacer">↷</button>
+    <span>|</span>
+    <button class="tool-icon" title="Zoom +">🔍</button>
+    <button class="tool-icon" title="Ajustar vista">⊡</button>
+    <button class="tool-icon" title="Seleccionar">↖</button>
+  </div>
+
+  <main class="workspace">
+
+    <aside class="palette">
+      <div class="palette-header">Tool Sets</div>
+      <div class="tool-grid">
+        <div class="tool active" data-tool="select">↖<small>Select</small></div>
+        <div class="tool" data-tool="line">╱<small>Line</small></div>
+        <div class="tool" data-tool="rect">▱<small>Rectangle</small></div>
+        <div class="tool" data-tool="circle">◯<small>Circle</small></div>
+        <div class="tool" data-tool="polygon">⬡<small>Polygon</small></div>
+        <div class="tool" data-tool="wall">▤<small>Wall</small></div>
+        <div class="tool" data-tool="text">T<small>Text</small></div>
+        <div class="tool" data-tool="arc">⌒<small>Arc</small></div>
+        <div class="tool" data-tool="hatch">▨<small>Hatch</small></div>
+        <div class="tool" data-tool="dimension">↔<small>Dimension</small></div>
+        <div class="tool" data-tool="hand">✋<small>Pan</small></div>
+        <div class="tool" data-tool="zoom">⌕<small>Zoom</small></div>
+      </div>
+    </aside>
+
+    <section class="drawing-container">
+      <div class="document-tab">
+        Untitled 1    |    Design Layer-1
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="drawing"></canvas>
+      </div>
+    </section>
+
+    <aside class="inspector">
+      <div class="section">
+        <div class="section-title">Object Info</div>
+        <div class="section-content">
+          <div class="field">
+            <label>Type</label>
+            <span id="objectType">None</span>
+          </div>
+          <div class="field">
+            <label>Position X</label>
+            <input id="posX" value="0" readonly>
+          </div>
+          <div class="field">
+            <label>Position Y</label>
+            <input id="posY" value="0" readonly>
+          </div>
+          <div class="field">
+            <label>Width</label>
+            <input id="width" value="—" readonly>
+          </div>
+          <div class="field">
+            <label>Height</label>
+            <input id="height" value="—" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Attributes</div>
+        <div class="section-content">
+          <div class="field">
+            <label>Fill</label>
+            <input type="color" value="#ffffff" id="fill">
+          </div>
+          <div class="field">
+            <label>Pen</label>
+            <input type="color" value="#222222" id="stroke">
+          </div>
+          <div class="field">
+            <label>Line Weight</label>
+            <select id="lineWeight">
+              <option>0.13 mm</option>
+              <option>0.18 mm</option>
+              <option selected>0.25 mm</option>
+              <option>0.35 mm</option>
+              <option>0.50 mm</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Navigation</div>
+        <div class="section-content">
+          <div class="field">
+            <label>Layer</label>
+            <select>
+              <option>Design Layer-1</option>
+              <option>Design Layer-2</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Scale</label>
+            <select>
+              <option>1:50</option>
+              <option selected>1:100</option>
+              <option>1:200</option>
+              <option>1:500</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Units</label>
+            <select>
+              <option>Millimeters</option>
+              <option>Meters</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="statusbar">
+    <div class="status-left">
+      <span id="coordinates">X: 0 | Y: 0</span>
+      <span>Snap: ON</span>
+      <span>Grid: ON</span>
+    </div>
+    <div class="status-right">
+      <span>Design Layer-1</span>
+      <span>Scale 1:100</span>
+      <span>Ready</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const canvas = document.getElementById("drawing");
+const ctx = canvas.getContext("2d");
+
+let objects = [];
+let selected = null;
+let activeTool = "select";
+let start = null;
+let preview = null;
+
+function resize() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  render();
+}
+
+function render() {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, w, h);
+
+  // Grid
+  ctx.strokeStyle = "#e8e8e8";
+  ctx.lineWidth = 1;
+
+  for (let x = 0; x < w; x += 20) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+
+  for (let y = 0; y < h; y += 20) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = "#aaa";
+  ctx.beginPath();
+  ctx.moveTo(0, h / 2);
+  ctx.lineTo(w, h / 2);
+  ctx.moveTo(w / 2, 0);
+  ctx.lineTo(w / 2, h);
+  ctx.stroke();
+
+  [...objects, ...(preview ? [preview] : [])].forEach(obj => {
+    ctx.fillStyle = obj.fill || "transparent";
+    ctx.strokeStyle = obj.stroke || "#222";
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+
+    if (obj.type === "rect") {
+      ctx.rect(obj.x, obj.y, obj.w, obj.h);
+    } else if (obj.type === "circle") {
+      ctx.ellipse(
+        obj.x + obj.w / 2,
+        obj.y + obj.h / 2,
+        Math.abs(obj.w / 2),
+        Math.abs(obj.h / 2),
+        0, 0, Math.PI * 2
+      );
+    } else if (obj.type === "line" || obj.type === "wall") {
+      ctx.moveTo(obj.x, obj.y);
+      ctx.lineTo(obj.x + obj.w, obj.y + obj.h);
+    }
+
+    if (obj.type !== "line" && obj.type !== "wall") {
+      ctx.fill();
+    }
+    ctx.stroke();
+
+    if (obj === selected) {
+      ctx.setLineDash([4, 3]);
+      ctx.strokeStyle = "#1674d1";
+      ctx.strokeRect(obj.x - 4, obj.y - 4,
+        obj.w + 8, obj.h + 8);
+      ctx.setLineDash([]);
+    }
+  });
+}
+
+function point(e) {
+  const r = canvas.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+document.querySelectorAll(".tool").forEach(el => {
+  el.addEventListener("click", () => {
+    document.querySelector(".tool.active")?.classList.remove("active");
+    el.classList.add("active");
+    activeTool = el.dataset.tool;
+    canvas.style.cursor = activeTool === "select" ? "default" : "crosshair";
+  });
+});
+
+canvas.addEventListener("mousemove", e => {
+  const p = point(e);
+  document.getElementById("coordinates").textContent =
+    `X: ${Math.round(p.x)} | Y: ${Math.round(p.y)}`;
+
+  if (start && preview) {
+    preview.w = p.x - start.x;
+    preview.h = p.y - start.y;
+    render();
+  }
+});
+
+canvas.addEventListener("mousedown", e => {
+  const p = point(e);
+
+  if (activeTool === "select") {
+    selected = [...objects].reverse().find(obj =>
+      p.x >= Math.min(obj.x, obj.x + obj.w) - 5 &&
+      p.x <= Math.max(obj.x, obj.x + obj.w) + 5 &&
+      p.y >= Math.min(obj.y, obj.y + obj.h) - 5 &&
+      p.y <= Math.max(obj.y, obj.y + obj.h) + 5
+    ) || null;
+
+    updateInspector();
+    render();
+    return;
+  }
+
+  if (["rect", "circle", "line", "wall"].includes(activeTool)) {
+    start = p;
+    preview = {
+      type: activeTool,
+      x: p.x,
+      y: p.y,
+      w: 0,
+      h: 0,
+      fill: document.getElementById("fill").value,
+      stroke: document.getElementById("stroke").value
+    };
+  }
+});
+
+canvas.addEventListener("mouseup", () => {
+  if (preview) {
+    objects.push(preview);
+    selected = preview;
+    preview = null;
+    start = null;
+    updateInspector();
+    render();
+  }
+});
+
+function updateInspector() {
+  const obj = selected;
+  document.getElementById("objectType").textContent =
+    obj ? obj.type : "None";
+
+  document.getElementById("posX").value =
+    obj ? Math.round(obj.x) : 0;
+  document.getElementById("posY").value =
+    obj ? Math.round(obj.y) : 0;
+  document.getElementById("width").value =
+    obj ? Math.abs(Math.round(obj.w)) : "—";
+  document.getElementById("height").value =
+    obj ? Math.abs(Math.round(obj.h)) : "—";
+}
+
+window.addEventListener("resize", resize);
+resize();
+</script>
+</body>
+</html>
